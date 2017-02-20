@@ -21,11 +21,11 @@ class AuthService {
             localStorage.setItem("jwt",response.headers.authorization);
             myfunction.sweetSuccess("Welcome !", response.data.position);
             ReactDOM.unmountComponentAtNode(document.getElementById('root'));
-            ReactDOM.render(<WelcomePage />, document.getElementById('root'));
+            ReactDOM.render(<WelcomePage userType={response.data.position}/>, document.getElementById('root'));
         })
             .catch(function (error) {
                 console.log(error);
-                myfunction.sweetError('Oops...',error);
+                myfunction.sweetError('Oops...',error.response.data.error);
             });
     }
 

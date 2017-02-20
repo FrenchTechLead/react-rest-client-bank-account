@@ -5,6 +5,9 @@ import Login from '../auth0/login'
 import OperationsList from './OperationsList'
 import MonCompte from './MonCompte'
 import MyInfo from './MyInfo'
+import AddUser from '../superuser_space/AddUser'
+import EditUser from '../superuser_space/EditUser'
+import DeleteUser from '../superuser_space/DeleteUser'
 import Virement from './virement'
 import React from 'react';
 import ReactDOM from 'react-dom'
@@ -15,14 +18,15 @@ export default class WelcomePage extends React.Component{
         super(props);
         this.state= {user_id:0,name:null,email:null,operations:{},solde:0};
         this.updateState= this.updateState.bind(this);
-        this.updateState();
 
     }
     componentDidMount() {
-        this.timerID = setInterval(     //pour vérifier le solde chaque 3 secondes
-            () => this.updateState(),
-            3000
-        );
+        if(this.props.userType==="user"){
+            this.timerID = setInterval(     //pour vérifier le solde chaque 3 secondes
+                () => this.updateState(),
+                3000
+            );
+        }
     }
 
     componentWillUnmount() {
@@ -87,6 +91,7 @@ export default class WelcomePage extends React.Component{
 
     }
     render(){
+        if(this.props.userType === "user")
         return(
         <div className="container   ">
             <nav className="navbar navbar-default">
@@ -131,5 +136,60 @@ export default class WelcomePage extends React.Component{
                 </div>
             </div>
         </div>);
+        if(this.props.userType==="superuser")
+            return (<div className="container   ">
+                <nav className="navbar navbar-default">
+                    <div className="container-fluid">
+                        <div className="navbar-header">
+                            <a className="navbar-brand black" href="#">
+                                <i className="fa fa-university black" aria-hidden="true"> La Banque du future</i>
+                            </a>
+                        </div>
+                        <div style={{"textAlign":"right",'marginTop':'10px',"cursor":"pointer"}}><a onClick={() => { this.logOut() }}>Signout <i className="fa fa-sign-out" aria-hidden="true"></i></a></div>
+
+                    </div>
+                </nav>
+                <div className="row" style={{"paddingRight":"15px"}}>
+                    <div className="col-xs-12 col-md-3">
+                        <div className="list-group" style={{"cursor":"pointer"}}>
+                            <a onClick={() => { this.addUserView() }} className="list-group-item active" id="addUser">
+                                <h4 className="list-group-item-heading"><i className="fa fa-plus-circle" aria-hidden="true"></i> Ajouter un utilisateur</h4>
+                            </a>
+                            <a onClick={() => { this.deleteUserView() }} className="list-group-item" id="deleteUser">
+                                <h4 className="list-group-item-heading"><i className="fa fa-times-circle" aria-hidden="true"></i> Modifier ou supprimer un utilisateur</h4>
+                            </a>
+
+                        </div>
+
+                        <div  className="thumbnail text-center hidden-xs hidden-sm" style={{"color":"black"}}>
+                            <i style={{"fontSize":"100px"}} className="fa fa-laptop" aria-hidden="true"></i><br/>
+                            <i style={{"fontSize":"100px"}} className="fa fa-tablet" aria-hidden="true"></i><br/>
+                            <i style={{"fontSize":"100px"}} className="fa fa-mobile" aria-hidden="true"></i><br/>
+                            <p> Cette application web est optimisée pour tous les écrans</p>
+                        </div>
+
+                    </div>
+                    <div className="col-xs-12 col-md-9 well"  style={{"color":"#56c9ba","minHeight":"605px"}}>
+                        <label className="row"><i className="fa fa-user-o" aria-hidden="true"></i> {this.state.email}</label>
+                        <div id="content-holder"><AddUser /></div>
+                    </div>
+                </div>
+            </div>);
+    }
+
+    addUserView(){
+        $('.list-group > a').each(function () { $(this).removeClass("active")});
+        $("#addUser").addClass("active");
+        ReactDOM.unmountComponentAtNode(document.getElementById("content-holder"));
+        ReactDOM.render(<AddUser />, document.getElementById('content-holder'));
+
+    }
+
+    deleteUserView(){
+        $('.list-group > a').each(function () { $(this).removeClass("active")});
+        $("#deleteUser").addClass("active");
+        ReactDOM.unmountComponentAtNode(document.getElementById("content-holder"));
+        ReactDOM.render(<DeleteUser />, document.getElementById('content-holder'));
+
     }
 }
