@@ -11,7 +11,7 @@ class AuthService {
         // We call the server to log the user in.
         return axios({
             method: 'post',
-            url: 'http://localhost:8080/v1/authentificate',
+            url: require("./../../config").baseURL+'/v1/authenticate',
             data: {
                 email: email,
                 pass: password

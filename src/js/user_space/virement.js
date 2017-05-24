@@ -17,7 +17,7 @@ export default class Virement extends React.Component {
         e.preventDefault();
         axios({
             method: 'post',
-            url: 'http://localhost:8080/v1/virement',
+            url: require("./../../config").baseURL+'/v1/virement',
             headers: {'Authorization': localStorage.getItem("jwt")},
             data: {
                 email: this.state.email,

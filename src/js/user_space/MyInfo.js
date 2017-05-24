@@ -16,7 +16,7 @@ export default class MyInfo extends React.Component{
         e.preventDefault();
         axios({
             method: 'post',
-            url: 'http://localhost:8080/v1/myinfo',
+            url: require("./../../config").baseURL+'/v1/myinfo',
             headers: {'Authorization': localStorage.getItem("jwt")},
             data: {
                 email: this.state.email,

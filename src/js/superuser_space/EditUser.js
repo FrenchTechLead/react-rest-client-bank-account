@@ -39,7 +39,7 @@ export default class EditUser extends React.Component {
     edit(){
         axios({
             method: 'PATCH',
-            url: 'http://localhost:8080/v1/users/'+this.state.user.id,
+            url: require("./../../config").baseURL+'/v1/users/'+this.state.user.id,
             data:[
                 { op: "replace", path: "/pass", value: this.state.pass },
                 { op: "replace", path: "/email", value: this.state.email },

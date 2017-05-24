@@ -23,7 +23,7 @@ export default class DeleteUser extends React.Component{
     getAllUsers(){
         axios({
             method: 'get',
-            url: 'http://localhost:8080/v1/users',
+            url: require("./../../config").baseURL+'/v1/users',
             headers: {'Authorization': localStorage.getItem("jwt")},
         }).then((response)=> {
             localStorage.setItem("jwt",response.headers.authorization);
@@ -38,7 +38,7 @@ export default class DeleteUser extends React.Component{
     delete(user_id){
         axios({
             method: 'DELETE',
-            url: 'http://localhost:8080/v1/users/'+user_id,
+            url: require("./../../config").baseURL+'/v1/users/'+user_id,
             headers: {'Authorization': localStorage.getItem("jwt")},
         }).then((response)=> {
             localStorage.setItem("jwt",response.headers.authorization);

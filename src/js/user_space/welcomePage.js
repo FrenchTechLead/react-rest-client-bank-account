@@ -36,7 +36,7 @@ export default class WelcomePage extends React.Component{
     updateState(){
         axios({
             method:'GET',
-            url:'http://localhost:8080/v1/operations',
+            url:require("./../../config").baseURL+'/v1/operations',
             headers: {'Authorization': localStorage.getItem("jwt")}
         }).then(response => {
             localStorage.setItem("jwt",response.headers.authorization);
