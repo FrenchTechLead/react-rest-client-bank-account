@@ -16,7 +16,7 @@ export default class DeleteUser extends React.Component{
 
     componentDidMount(){
 
-        //setInterval(()=>{ this.getAllUsers();this.forceUpdate(); }, 1000);
+        setInterval(()=>{ this.getAllUsers();this.forceUpdate(); }, 1000);
 
     }
 
