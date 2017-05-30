@@ -20,10 +20,10 @@ export default class AddUser extends React.Component{
             url: require("./../../config").baseURL+'/v1/users',
             headers: {'Authorization': localStorage.getItem("jwt")},
             data: {
-                nom: this.state.nom,
+                username: this.state.nom,
                 email: this.state.email,
                 is_superuser: 0,
-                pass:this.state.pass
+                password:this.state.pass
             },
 
         }).then(function (response) {

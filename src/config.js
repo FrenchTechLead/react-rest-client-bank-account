@@ -1,4 +1,4 @@
 module.exports = {
-    baseURL:"http://localhost:8080",
+    baseURL:"https://php-slim-rest-bank-account.herokuapp.com",
     testURL:""
 };
